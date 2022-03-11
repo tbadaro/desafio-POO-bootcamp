@@ -15,7 +15,7 @@ descrição, além de possuir uma carga horária. Na classe Curso, o método par
 por um valor padrão de 10, totalizando a pontuação recebida pela conclusão do curso.
 
 Classe Mentoria:
-A classe curso descreve as emntorias ministradas no bootcamp. Como classe filha de Conteudo, ela recebe um nome e uma 
+A classe curso descreve as mentorias ministradas no bootcamp. Como classe filha de Conteudo, ela recebe um nome e uma 
 descrição, além de possuir uma data. Na classe Mentoria, o método para cálculo de XP apenas soma o valor 
 padrão com 20.
 
