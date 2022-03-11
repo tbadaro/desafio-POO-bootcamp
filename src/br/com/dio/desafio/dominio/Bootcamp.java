@@ -1,10 +1,7 @@
 package br.com.dio.desafio.dominio;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Bootcamp {
     private String nome;
@@ -14,6 +11,7 @@ public class Bootcamp {
 
     private Set<Dev> devsInscritos = new HashSet<>();
     private Set<Conteudo> conteudos = new LinkedHashSet<>();
+    protected Set<String> idDevs = new HashSet<>();
 
     public String getNome() {
         return nome;
@@ -43,6 +41,10 @@ public class Bootcamp {
         return devsInscritos;
     }
 
+    public Set<String> getIdDevs() {
+        return idDevs;
+    }
+
     public void setDevsInscritos(Set<Dev> devsInscritos) {
         this.devsInscritos = devsInscritos;
     }
@@ -51,9 +53,14 @@ public class Bootcamp {
         return conteudos;
     }
 
+    public void setIdDevs(Set<String> idDevs) {
+        this.idDevs = idDevs;
+    }
+
     public void setConteudos(Set<Conteudo> conteudos) {
         this.conteudos = conteudos;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -66,5 +73,50 @@ public class Bootcamp {
     @Override
     public int hashCode() {
         return Objects.hash(nome, descricao, dataInicial, dataFinal, devsInscritos, conteudos);
+    }
+
+    public void imprimirListaDevs(){
+        System.out.println("*** Devs inscritos ***");
+        for (Dev dev : this.devsInscritos){
+            System.out.printf("Nome: %s", dev.getNome());
+            System.out.printf("  Id: %s%n", dev.getIdentificador());
+        }
+        System.out.println("-----------------");
+        System.out.println(" ");
+    }
+
+    public void imprimirListaConteudo(){
+        System.out.println("*** Conteúdo do Bootcamp ***");
+        for (Conteudo conteudo : this.conteudos){
+            System.out.println(conteudo.getTitulo());
+        }
+        System.out.println("-----------------");
+        System.out.println(" ");
+    }
+
+    public void imprimirInfoDev(String idDev){
+        System.out.println("*** Informações do Dev ***");
+        if (idDevs.contains(idDev)){
+            for(Dev dev : this.devsInscritos) {
+                if (Objects.equals(idDev, dev.getIdentificador())){
+                    System.out.printf("Nome: %s%n", dev.getNome());
+                    System.out.printf("Código indentificador: %s%n", dev.getIdentificador());
+                    System.out.println("---Conteúdo inscrito---");
+                    for (Conteudo conteudo : dev.getConteudosInscritos()){
+                        System.out.println(conteudo.getTitulo());
+                    }
+                    System.out.println("---Conteúdo concluído---");
+                    for (Conteudo conteudo : dev.getConteudosConcluidos()){
+                        System.out.println(conteudo.getTitulo());
+                    }
+                    System.out.println("-----------------");
+                    System.out.println("XP total:"+dev.calcularTotalXp());
+                }
+            }
+        } else {
+            System.out.println("Dev não cadastrado no bootcamp");
+        }
+        System.out.println("-----------------");
+        System.out.println(" ");
     }
 }

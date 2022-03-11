@@ -6,11 +6,20 @@ import java.util.Optional;
 import java.util.Set;
 
 public class Dev {
+    private static int SEQUENCIAL = 1;
+
     private String nome;
+    private String identificador;
     private Set<Conteudo> conteudosInscritos = new LinkedHashSet<>();
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
 
+    public Dev(String nome){
+        this.nome = nome;
+        this.identificador = "DEV"+SEQUENCIAL++;
+    }
+
     public void inscreverBootcamp(Bootcamp bootcamp){
+        bootcamp.getIdDevs().add(this.getIdentificador());
         this.conteudosInscritos.addAll(bootcamp.getConteudos());
         bootcamp.getDevsInscritos().add(this);
     }
@@ -34,6 +43,10 @@ public class Dev {
 
     public String getNome() {
         return nome;
+    }
+
+    public String getIdentificador() {
+        return identificador;
     }
 
     public void setNome(String nome) {
@@ -68,4 +81,5 @@ public class Dev {
     public int hashCode() {
         return Objects.hash(nome, conteudosInscritos, conteudosConcluidos);
     }
+
 }
